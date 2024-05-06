@@ -4,7 +4,7 @@
 #include <climits>
 using namespace std;
 
-#define INF INT_MAX
+const int INF = INT_MAX; // Using constant instead of macro for maximum integer value
 
 // Structure to represent a node in the graph
 struct Node
@@ -15,7 +15,7 @@ struct Node
 };
 
 // Comparator function for priority queue
-struct Comp
+struct Compare
 {
     bool operator()(const Node &a, const Node &b)
     {
@@ -28,7 +28,7 @@ void dijkstra(vector<vector<pair<int, int>>> &graph, int start)
 {
     int V = graph.size();
     vector<int> dist(V, INF);
-    priority_queue<Node, vector<Node>, Comp> pq;
+    priority_queue<Node, vector<Node>, Compare> pq;
 
     dist[start] = 0;
     pq.push(Node(start, 0));
@@ -43,8 +43,10 @@ void dijkstra(vector<vector<pair<int, int>>> &graph, int start)
         if (distance > dist[u])
             continue;
 
-        for (auto &[v, weight] : graph[u])
+        for (auto &edge : graph[u])
         {
+            int v = edge.first;
+            int weight = edge.second;
             if (dist[u] + weight < dist[v])
             {
                 dist[v] = dist[u] + weight;
@@ -75,8 +77,8 @@ int main()
         int src, dest, weight;
         cin >> src >> dest >> weight;
         graph[src].push_back({dest, weight});
-        // For directed graph
-        // graph[src].push_back({dest, weight});
+        // For undirected graph
+        // graph[dest].push_back({src, weight});
     }
 
     int startVertex;
@@ -100,5 +102,4 @@ Enter edges in the format: source destination weight
 2 4 3
 3 4 5
 Enter the starting vertex: 0
-
 */

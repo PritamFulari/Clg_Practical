@@ -10,8 +10,8 @@ using namespace std;
 struct Node
 {
     int vertex;
-    int weight;
-    Node(int v, int w) : vertex(v), weight(w) {}
+    int distance;
+    Node(int v, int d) : vertex(v), distance(d) {}
 };
 
 // Comparator function for priority queue
@@ -19,7 +19,7 @@ struct Comp
 {
     bool operator()(const Node &a, const Node &b)
     {
-        return a.weight > b.weight;
+        return a.distance > b.distance;
     }
 };
 
@@ -41,8 +41,11 @@ void prim(vector<vector<pair<int, int>>> &graph, int start)
         pq.pop();
         visited[u] = true;
 
-        for (auto &[v, weight] : graph[u])
+        for (size_t i = 0; i < graph[u].size(); ++i)
         {
+            int v = graph[u][i].first;
+            int weight = graph[u][i].second;
+
             if (!visited[v] && weight < dist[v])
             {
                 dist[v] = weight;
@@ -85,3 +88,17 @@ int main()
 
     return 0;
 }
+
+/*
+
+Enter the number of vertices and edges: 5 7
+Enter edges in the format: source destination weight
+0 1 2
+0 3 6
+1 2 3
+1 3 8
+1 4 5
+2 4 7
+3 4 9
+Enter the starting vertex: 0
+*/
