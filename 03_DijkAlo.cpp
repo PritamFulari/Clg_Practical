@@ -88,3 +88,17 @@ int main()
 
     return 0;
 }
+
+/*
+Enter the number of vertices and edges: 5 7
+Enter edges in the format: source destination weight
+0 1 4
+0 2 1
+1 2 2
+1 3 5
+2 3 2
+2 4 3
+3 4 5
+Enter the starting vertex: 0
+
+*/
